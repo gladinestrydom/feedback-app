@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import FeedBackItem from './FeedBackItem';
 
 function FeedBackList({ feedback }) {
@@ -13,5 +14,15 @@ function FeedBackList({ feedback }) {
     </div>
   );
 }
+
+FeedBackList.propTypes = {
+  feedback: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      text: PropTypes.string.isRequired,
+      rating: PropTypes.number.isRequired,
+    })
+  ),
+};
 
 export default FeedBackList;
