@@ -4,9 +4,22 @@ import Button from './shared/Button';
 
 function FeedBackForm() {
   const [text, setText] = useState('');
+  const [btnDisabled, setBtnDisabled] = useState(true);
+  const [msg, setMsg] = useState('');
 
   const handleTextChange = (e) => {
-    console.log(e.target.value);
+    if (text === '') {
+      setBtnDisabled(true);
+      setMsg(null);
+    } else if (text !== '' && text.trim().length <= 10) {
+      setBtnDisabled(true);
+      setMsg('Text must be at least 10 characters');
+    } else {
+      setMsg(null);
+      setBtnDisabled(false);
+    }
+
+    setText(e.target.value);
   };
 
   return (
@@ -21,8 +34,12 @@ function FeedBackForm() {
             placeholder="Write a review"
             value={text}
           />
-          <Button type="submit">Send</Button>
+          <Button type="submit" isDisabled={btnDisabled}>
+            Send
+          </Button>
         </div>
+
+        {msg && <div className="message">{msg}</div>}
       </form>
     </Card>
   );
